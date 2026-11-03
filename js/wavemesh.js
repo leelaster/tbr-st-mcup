@@ -19,7 +19,7 @@
   const CAM = 0.62; // camera height above the ground
   const NEAR = 0.35, FAR = 3.4;
 
-  window.mountWaveMesh = function (host, { dot = "196,202,210" } = {}) {
+  window.mountWaveMesh = function (host, { dot = "196,202,210", origin = null } = {}) {
     const canvas = document.createElement("canvas");
     canvas.className = "hero__mesh";
     canvas.setAttribute("aria-hidden", "true");
@@ -30,9 +30,8 @@
     const coarse = !matchMedia("(hover: hover) and (pointer: fine)").matches;
     const dpr = Math.min(devicePixelRatio, 2);
     let W = 0, H = 0, cols = 0, rows = 0, f = 0, hz = 0;
-    let raf = 0, visible = true, last = 0;
+    let raf = 0, visible = true, last = 0, nextPulse = 0;
     const t0 = performance.now();
-    const ptr = { x: 0, z: 1.4, s: 0, tx: 0, tz: 1.4, ts: 0 };
     const rings = [];
 
     const resize = () => {
@@ -51,25 +50,26 @@
     // World ground spans this half-width at the far edge, so the field always fills the frame.
     const half = () => (W / 2 / f) * FAR * 1.05;
 
+    // a calm swell, plus slow rings travelling out from the point on the ground beneath the globe
     const height = (x, z, t) => {
-      let y = 0.085 * Math.sin(x * 2.2 + t * 0.7) + 0.07 * Math.sin(z * 2.9 - t * 0.9 + x * 0.8) + 0.03 * Math.sin((x + z) * 6.1 + t * 1.6);
-      if (ptr.s > 0.01) {
-        const d2 = (x - ptr.x) ** 2 + (z - ptr.z) ** 2;
-        y += 0.24 * ptr.s * Math.exp(-d2 / 0.07);
-      }
+      let y = 0.03 * Math.sin(x * 1.6 + t * 0.35) + 0.022 * Math.sin(z * 2.2 - t * 0.4 + x * 0.6);
+      // rows close to the camera are magnified on screen, so rings are damped there to stay smooth
+      const near = Math.min(1, Math.max(0, (z - NEAR) / 1.1)) ** 1.5;
+      if (near <= 0) return y;
       for (const r of rings) {
-        const age = t - r.t, d = Math.hypot(x - r.x, z - r.z), front = age * 1.15;
-        y += 0.2 * Math.exp(-((d - front) ** 2) / 0.014) * Math.exp(-age * 0.75);
+        const age = t - r.t, d = Math.hypot(x - r.x, z - r.z), front = age * r.speed;
+        y += near * r.amp * Math.exp(-((d - front) ** 2) / 0.03) * Math.exp(-age * 0.32);
       }
       return y;
     };
 
     const frame = (t) => {
       ctx.clearRect(0, 0, W, H);
-      ptr.x += (ptr.tx - ptr.x) * 0.1;
-      ptr.z += (ptr.tz - ptr.z) * 0.1;
-      ptr.s += (ptr.ts - ptr.s) * 0.06;
-      while (rings.length && t - rings[0].t > 5) rings.shift();
+      if (t > nextPulse) {
+        emit(0.075, 0.42);
+        nextPulse = t + 2.8;
+      }
+      while (rings.length && t - rings[0].t > 10) rings.shift();
       const hw = half();
       for (let j = 0; j < rows; j++) {
         // Rows are spaced geometrically in depth, so they sit roughly evenly on screen; each row shares a size and a fog.
@@ -99,27 +99,18 @@
     };
     const wake = () => { if (!reduced && !raf && visible && !document.hidden) raf = requestAnimationFrame(loop); };
 
-    /** Where on the ground a screen point lands (ignoring the waves). Points above the horizon drop just below it. */
-    const ground = (cx, cy, clamp) => {
-      const r = host.getBoundingClientRect();
-      const sx = cx - r.left;
-      let sy = cy - r.top;
-      if (sx < 0 || sx > r.width || sy < 0 || sy > r.height) return null;
-      if (sy <= hz + 4) {
-        if (!clamp) return null;
-        sy = hz + H * 0.12;
-      }
+    /** The point on the ground just beneath the globe, in world units. */
+    const source = () => {
+      const h = host.getBoundingClientRect();
+      const g = origin ? origin.getBoundingClientRect() : h;
+      const sx = g.left + g.width / 2 - h.left;
+      const sy = Math.max(hz + H * 0.1, Math.min(H - 4, g.top + g.height * 0.86 - h.top));
       const z = Math.min(FAR, Math.max(NEAR, (CAM * f) / (sy - hz)));
       return { x: ((sx - W / 2) * z) / f, z };
     };
-    const onMove = (e) => {
-      const g = ground(e.clientX, e.clientY, false);
-      if (g) { ptr.tx = g.x; ptr.tz = g.z; if (ptr.s < 0.05) { ptr.x = g.x; ptr.z = g.z; } }
-      ptr.ts = g ? 1 : 0;
-    };
-    const onDown = (e) => {
-      const g = ground(e.clientX, e.clientY, false);
-      if (g) rings.push({ x: g.x, z: g.z, t: now() });
+    const emit = (amp, speed) => {
+      const s = source();
+      rings.push({ x: s.x, z: s.z, t: now(), amp, speed });
     };
 
     resize();
@@ -129,12 +120,8 @@
     document.addEventListener("visibilitychange", wake);
     if (!reduced) {
       wake();
-      if (!coarse) window.addEventListener("pointermove", onMove, { passive: true });
-      window.addEventListener("pointerdown", onDown, { passive: true });
-      window.addEventListener("globe:ping", (e) => {
-        const g = ground(e.detail.x, e.detail.y, true);
-        if (g) rings.push({ x: g.x, z: g.z, t: now() });
-      });
+      // a route leaving or landing sends a slightly stronger ring out from the globe
+      window.addEventListener("globe:ping", () => emit(0.1, 0.5));
     }
   };
 })();

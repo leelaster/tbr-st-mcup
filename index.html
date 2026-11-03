@@ -280,7 +280,7 @@
   <script src="js/globe.js"></script>
   <script src="js/wavemesh.js"></script>
   <script>
-    mountWaveMesh(document.querySelector(".hero"));
+    mountWaveMesh(document.querySelector(".hero"), { origin: document.getElementById("globe") });
     mountRouteGlobe(document.getElementById("globe"), {
       hub: { name: "Nesher", lon: 35.04, lat: 32.77 },
       places: [
