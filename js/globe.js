@@ -69,7 +69,7 @@
     return [a[0] * ka + b[0] * kb, a[1] * ka + b[1] * kb, a[2] * ka + b[2] * kb];
   }
 
-  function drawGlobe(ctx, dots, v, colour, dot, glow) {
+  function drawGlobe(ctx, dots, v, colour, dot, glow, ground) {
     const { cx, cy, r, yaw, tilt } = v;
     const g = ctx.createRadialGradient(cx, cy, r * 0.92, cx, cy, r * 1.22);
     g.addColorStop(0, glow);
@@ -78,6 +78,16 @@
     ctx.beginPath();
     ctx.arc(cx, cy, r * 1.22, 0, Math.PI * 2);
     ctx.fill();
+    // a solid body, so the page background does not show through the sphere
+    if (ground) {
+      const body = ctx.createRadialGradient(cx - r * 0.3, cy - r * 0.35, r * 0.1, cx, cy, r);
+      body.addColorStop(0, "#0c1a2c");
+      body.addColorStop(1, ground);
+      ctx.fillStyle = body;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r * 1.005, 0, Math.PI * 2);
+      ctx.fill();
+    }
     ctx.fillStyle = colour;
     const cy_ = Math.cos(yaw), sy = Math.sin(yaw), ct = Math.cos(tilt), st = Math.sin(tilt);
     ctx.globalAlpha = 0.09;
@@ -152,7 +162,7 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, W, Hh);
       const r = radius(), cx = W / 2, cy = Hh / 2;
-      drawGlobe(ctx, dots, { cx, cy, r, yaw: st.yaw, tilt: st.tilt }, theme.land, Math.max(1.4, r / 150), theme.glow);
+      drawGlobe(ctx, dots, { cx, cy, r, yaw: st.yaw, tilt: st.tilt }, theme.land, Math.max(1.4, r / 150), theme.glow, theme.ground);
       const t = (now - t0) / 1000;
       pins.length = 0;
       ctx.lineCap = "round";

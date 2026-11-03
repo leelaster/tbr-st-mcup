@@ -37,7 +37,6 @@
   <main>
     <!-- HERO CAROUSEL -->
     <section class="hero">
-      <canvas class="hero__sonar" id="sonar" aria-hidden="true"></canvas>
       <div class="wrap hero__inner">
         <div class="hero__copy">
           <div class="slides" id="slides">
@@ -279,9 +278,9 @@
 
   <script src="js/land.js"></script>
   <script src="js/globe.js"></script>
-  <script src="js/sonar.js"></script>
+  <script src="js/wavemesh.js"></script>
   <script>
-    mountSonar(document.getElementById("sonar"), document.querySelector(".hero"));
+    mountWaveMesh(document.querySelector(".hero"));
     mountRouteGlobe(document.getElementById("globe"), {
       hub: { name: "Nesher", lon: 35.04, lat: 32.77 },
       places: [
@@ -289,7 +288,7 @@
         { name: "Wedemark", lon: 9.72, lat: 52.53, note: "European Sales & Support" },
         { name: "Ahmedabad", lon: 72.57, lat: 23.02, note: "Asian Sales & Support" },
       ],
-      theme: { land: "#7fa8d8", arc: "#a6d13f", glow: "rgb(40 130 220 / 0.20)", text: "#eef3fa", muted: "#9aa8bd" },
+      theme: { ground: "#07101c", land: "#7fa8d8", arc: "#a6d13f", glow: "rgb(40 130 220 / 0.20)", text: "#eef3fa", muted: "#9aa8bd" },
     });
 
     // hero carousel: rotates on its own, dots jump to a slide
