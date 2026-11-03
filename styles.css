@@ -56,16 +56,11 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 /* ---- hero ---- */
 .hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
-.hero__grid {
-  position: absolute; inset: 0; pointer-events: none;
-  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: radial-gradient(ellipse 80% 70% at 70% 50%, #000 30%, transparent 80%);
-}
-.hero__inner { position: relative; display: grid; grid-template-columns: 1fr 1.05fr; align-items: center; gap: 40px; min-height: min(calc(100vh - 88px), 760px); padding-top: 40px; padding-bottom: 40px; }
+.hero__sonar { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
+.hero__inner { position: relative; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 40px; padding-top: 24px; padding-bottom: 24px; }
 .slides { display: grid; }
-.slide { grid-area: 1 / 1; opacity: 0; transform: translateY(12px); transition: opacity 0.6s ease, transform 0.6s ease; pointer-events: none; }
-.slide.is-active { opacity: 1; transform: none; pointer-events: auto; }
+.slide { grid-area: 1 / 1; opacity: 0; transform: translateY(-8px); transition: opacity 0.3s ease, transform 0.3s ease; pointer-events: none; }
+.slide.is-active { opacity: 1; transform: none; pointer-events: auto; transition-duration: 0.5s; transition-delay: 0.3s; }
 .hero h1 { font-size: clamp(38px, 5vw, 64px); line-height: 1.04; margin: 22px 0; letter-spacing: -0.025em; }
 .hero__cta { margin-top: 28px; }
 .hero__dots { display: flex; align-items: center; gap: 8px; margin-top: 40px; }
@@ -76,7 +71,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 .hero__count { margin-left: 14px; font: 500 12px var(--mono); color: var(--muted); }
 
 /* globe */
-.rg { position: relative; width: 100%; aspect-ratio: 1 / 1; max-height: 640px; }
+.rg { position: relative; width: 100%; max-width: 560px; margin: 0 auto; aspect-ratio: 1 / 1; }
 .rg__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: pan-y; }
 .rg[data-dragging] .rg__canvas { cursor: grabbing; }
 .rg__tip { pointer-events: none; position: absolute; translate: 14px -50%; display: flex; flex-direction: column; gap: 2px; padding: 7px 10px; border: 1px solid rgb(166 209 63 / 0.45); border-radius: 6px; background: rgb(6 10 17 / 0.88); backdrop-filter: blur(6px); font-size: 13px; white-space: nowrap; }

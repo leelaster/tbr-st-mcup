@@ -37,7 +37,7 @@
   <main>
     <!-- HERO CAROUSEL -->
     <section class="hero">
-      <div class="hero__grid" aria-hidden="true"></div>
+      <canvas class="hero__sonar" id="sonar" aria-hidden="true"></canvas>
       <div class="wrap hero__inner">
         <div class="hero__copy">
           <div class="slides" id="slides">
@@ -279,7 +279,9 @@
 
   <script src="js/land.js"></script>
   <script src="js/globe.js"></script>
+  <script src="js/sonar.js"></script>
   <script>
+    mountSonar(document.getElementById("sonar"), document.querySelector(".hero"));
     mountRouteGlobe(document.getElementById("globe"), {
       hub: { name: "Nesher", lon: 35.04, lat: 32.77 },
       places: [

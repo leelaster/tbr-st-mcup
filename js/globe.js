@@ -190,6 +190,14 @@
         const end = pts[48];
         const front = end.z > 0;
         pins.push({ p: rt.p, x: end.x, y: end.y, front });
+        // tell the background where a comet leaves the hub and where it lands
+        if (!reduced && rt.prev !== undefined) {
+          const b = cv.getBoundingClientRect();
+          const emit = (pt) => window.dispatchEvent(new CustomEvent("globe:ping", { detail: { x: b.left + pt.x, y: b.top + pt.y } }));
+          if (rt.prev < 0.7 && ph >= 0.7 && front) emit(end);
+          if (ph < rt.prev && pts[0].z > 0) emit(pts[0]);
+        }
+        rt.prev = ph;
         if (front) {
           ctx.globalAlpha = 1;
           ctx.fillStyle = theme.arc;
