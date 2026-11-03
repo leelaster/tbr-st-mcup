@@ -52,13 +52,13 @@
 
     // a calm swell, plus slow rings travelling out from the point on the ground beneath the globe
     const height = (x, z, t) => {
-      let y = 0.03 * Math.sin(x * 1.6 + t * 0.35) + 0.022 * Math.sin(z * 2.2 - t * 0.4 + x * 0.6);
+      let y = 0.03 * Math.sin(x * 1.6 + t * 0.1) + 0.022 * Math.sin(z * 2.2 - t * 0.12 + x * 0.6);
       // rows close to the camera are magnified on screen, so rings are damped there to stay smooth
       const near = Math.min(1, Math.max(0, (z - NEAR) / 1.1)) ** 1.5;
       if (near <= 0) return y;
       for (const r of rings) {
         const age = t - r.t, d = Math.hypot(x - r.x, z - r.z), front = age * r.speed;
-        y += near * r.amp * Math.exp(-((d - front) ** 2) / 0.03) * Math.exp(-age * 0.32);
+        y += near * r.amp * Math.exp(-((d - front) ** 2) / 0.03) * Math.exp(-age * 0.11);
       }
       return y;
     };
@@ -66,16 +66,16 @@
     const frame = (t) => {
       ctx.clearRect(0, 0, W, H);
       if (t > nextPulse) {
-        emit(0.075, 0.42);
-        nextPulse = t + 2.8;
+        emit(0.075, 0.14);
+        nextPulse = t + 6;
       }
-      while (rings.length && t - rings[0].t > 10) rings.shift();
+      while (rings.length && t - rings[0].t > 28) rings.shift();
       const hw = half();
       for (let j = 0; j < rows; j++) {
         // Rows are spaced geometrically in depth, so they sit roughly evenly on screen; each row shares a size and a fog.
         const z = FAR * Math.pow(NEAR / FAR, j / (rows - 1));
         const fog = Math.pow(1 - (z - NEAR) / (FAR - NEAR), 1.25);
-        const size = Math.max(0.8, Math.min(3.2, 2.3 / z));
+        const size = Math.max(1.3, Math.min(4.2, 3.1 / z));
         ctx.fillStyle = `rgba(${dot},${(0.08 + fog * 0.6).toFixed(3)})`;
         for (let i = 0; i < cols; i++) {
           const x = -hw + (i / (cols - 1)) * hw * 2;
@@ -121,7 +121,7 @@
     if (!reduced) {
       wake();
       // a route leaving or landing sends a slightly stronger ring out from the globe
-      window.addEventListener("globe:ping", () => emit(0.1, 0.5));
+      window.addEventListener("globe:ping", () => emit(0.09, 0.17));
     }
   };
 })();
