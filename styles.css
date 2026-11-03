@@ -38,8 +38,8 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 /* ---- header ---- */
 .nav { position: sticky; top: 0; z-index: 10; background: rgb(6 10 17 / 0.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
-.nav__top { display: flex; align-items: center; gap: 36px; height: 72px; }
-.nav__logo img { filter: brightness(0) invert(1); height: 34px; width: auto; }
+.nav__top { display: flex; align-items: center; gap: 36px; height: 88px; }
+.nav__logo img { filter: brightness(0) invert(1); height: 54px; width: auto; }
 .nav__links { display: flex; gap: 26px; font-size: 14.5px; }
 .nav__links a, .nav__sub { color: var(--muted); transition: color 0.2s; }
 .nav__links a:hover, .nav__sub:hover { color: var(--text); }
@@ -62,7 +62,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   background-size: 64px 64px;
   mask-image: radial-gradient(ellipse 80% 70% at 70% 50%, #000 30%, transparent 80%);
 }
-.hero__inner { position: relative; display: grid; grid-template-columns: 1fr 1.05fr; align-items: center; gap: 40px; min-height: calc(100vh - 72px); padding-top: 40px; padding-bottom: 40px; }
+.hero__inner { position: relative; display: grid; grid-template-columns: 1fr 1.05fr; align-items: center; gap: 40px; min-height: calc(100vh - 88px); padding-top: 40px; padding-bottom: 40px; }
 .slides { display: grid; }
 .slide { grid-area: 1 / 1; opacity: 0; transform: translateY(12px); transition: opacity 0.6s ease, transform 0.6s ease; pointer-events: none; }
 .slide.is-active { opacity: 1; transform: none; pointer-events: auto; }
@@ -187,6 +187,8 @@ ul { list-style: none; margin: 0; padding: 0; }
 }
 @media (max-width: 640px) {
   .wrap { padding: 0 16px; }
+  .nav__top { height: 72px; }
+  .nav__logo img { height: 44px; }
   .section { padding: 72px 0; }
   .pillars, .markets, .products, .sst__grid { grid-template-columns: 1fr; }
   .sst article, .sst article + article { padding: 32px 0; border-left: 0; }
