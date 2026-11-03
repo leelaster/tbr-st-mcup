@@ -50,33 +50,41 @@
     // World ground spans this half-width at the far edge, so the field always fills the frame.
     const half = () => (W / 2 / f) * FAR * 1.05;
 
-    // a calm swell, plus slow rings travelling out from the point on the ground beneath the globe
+    // The field behaves like a sheet the globe rests on: its weight pulls a well into the dots
+    // beneath it (the familiar picture of gravity bending space), the well breathes slowly, and
+    // ripples run out from it across a mild swell. `pull` is how strongly a point feels the globe.
+    let well = { x: 0, z: 1.4 }, pull = 0;
     const height = (x, z, t) => {
-      let y = 0.03 * Math.sin(x * 1.6 + t * 0.1) + 0.022 * Math.sin(z * 2.2 - t * 0.12 + x * 0.6);
+      let y = 0.03 * Math.sin(x * 1.5 + t * 0.22) + 0.022 * Math.sin(z * 2.1 - t * 0.26 + x * 0.55);
+      const d2 = (x - well.x) ** 2 + (z - well.z) ** 2;
+      pull = Math.exp(-d2 / 0.5);
+      y -= (0.15 + 0.02 * Math.sin(t * 0.6)) * pull + 0.04 / (1 + d2 * 4); // a soft bowl with a long gentle slope
       // rows close to the camera are magnified on screen, so rings are damped there to stay smooth
       const near = Math.min(1, Math.max(0, (z - NEAR) / 1.1)) ** 1.5;
       if (near <= 0) return y;
       for (const r of rings) {
         const age = t - r.t, d = Math.hypot(x - r.x, z - r.z), front = age * r.speed;
-        y += near * r.amp * Math.exp(-((d - front) ** 2) / 0.03) * Math.exp(-age * 0.11);
+        y += near * r.amp * Math.exp(-((d - front) ** 2) / 0.04) * Math.exp(-age * 0.16);
       }
       return y;
     };
 
     const frame = (t) => {
       ctx.clearRect(0, 0, W, H);
+      well = source();
       if (t > nextPulse) {
-        emit(0.075, 0.14);
-        nextPulse = t + 6;
+        emit(0.07, 0.2);
+        nextPulse = t + 7 + Math.random() * 4;
       }
-      while (rings.length && t - rings[0].t > 28) rings.shift();
+      while (rings.length && t - rings[0].t > 25) rings.shift();
       const hw = half();
+      const lit = [];
       for (let j = 0; j < rows; j++) {
         // Rows are spaced geometrically in depth, so they sit roughly evenly on screen; each row shares a size and a fog.
         const z = FAR * Math.pow(NEAR / FAR, j / (rows - 1));
         const fog = Math.pow(1 - (z - NEAR) / (FAR - NEAR), 1.25);
-        const size = Math.max(1.3, Math.min(4.2, 3.1 / z));
-        ctx.fillStyle = `rgba(${dot},${(0.08 + fog * 0.6).toFixed(3)})`;
+        const size = Math.max(1.8, Math.min(5, 3.9 / z));
+        ctx.fillStyle = `rgba(${dot},${(0.18 + fog * 0.62).toFixed(3)})`;
         for (let i = 0; i < cols; i++) {
           const x = -hw + (i / (cols - 1)) * hw * 2;
           const y = height(x, z, t);
@@ -84,8 +92,16 @@
           if (sx < -4 || sx > W + 4) continue;
           const sy = hz + ((CAM - y) / z) * f;
           ctx.fillRect(sx - size / 2, sy - size / 2, size, size);
+          if (pull > 0.12) lit.push(sx, sy, size, pull * (0.35 + fog * 0.65));
         }
       }
+      // dots inside the well glow a little brighter, so the globe's pull reads at a glance
+      ctx.fillStyle = "rgb(225,232,240)";
+      for (let k = 0; k < lit.length; k += 4) {
+        ctx.globalAlpha = lit[k + 3] * 0.7;
+        ctx.fillRect(lit[k] - lit[k + 2] / 2, lit[k + 1] - lit[k + 2] / 2, lit[k + 2], lit[k + 2]);
+      }
+      ctx.globalAlpha = 1;
     };
 
     const now = () => (performance.now() - t0) / 1000;
@@ -120,8 +136,8 @@
     document.addEventListener("visibilitychange", wake);
     if (!reduced) {
       wake();
-      // a route leaving or landing sends a slightly stronger ring out from the globe
-      window.addEventListener("globe:ping", () => emit(0.09, 0.17));
+      // touching the globe sends a ripple out across the sea: a soft one on hover, a fuller one on click
+      window.addEventListener("globe:touch", (e) => emit(e.detail.strong ? 0.11 : 0.07, 0.24));
     }
   };
 })();

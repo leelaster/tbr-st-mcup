@@ -132,6 +132,17 @@
     let W = 0, Hh = 0, dpr = 1, raf = 0, visible = true;
     const t0 = performance.now();
     const pins = [];
+    const pulse = { t: -1e9, k: 1, lastHover: -1e9, inside: false, downX: 0, downY: 0 };
+    const touch = (strong) => {
+      pulse.t = performance.now();
+      pulse.k = strong ? 1 : 0.6;
+      window.dispatchEvent(new CustomEvent("globe:touch", { detail: { strong } }));
+      if (reduced) draw(performance.now());
+    };
+    const onSphere = (e) => {
+      const b = cv.getBoundingClientRect();
+      return Math.hypot(e.clientX - b.left - W / 2, e.clientY - b.top - Hh / 2) < radius();
+    };
 
     const size = () => {
       dpr = Math.min(devicePixelRatio || 1, 2);
@@ -163,6 +174,18 @@
       ctx.clearRect(0, 0, W, Hh);
       const r = radius(), cx = W / 2, cy = Hh / 2;
       drawGlobe(ctx, dots, { cx, cy, r, yaw: st.yaw, tilt: st.tilt }, theme.land, Math.max(1.4, r / 150), theme.glow, theme.ground);
+      // a single pulse after the globe is touched: a ring of light leaves the rim and fades
+      const pk = (now - pulse.t) / 1400;
+      if (pk >= 0 && pk < 1) {
+        const e = 1 - Math.pow(1 - pk, 3);
+        ctx.strokeStyle = theme.text;
+        ctx.lineWidth = 1.5 * (1 - pk) + 0.5;
+        ctx.globalAlpha = 0.55 * (1 - pk) * pulse.k;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r * (1.01 + 0.32 * e), 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      }
       const t = (now - t0) / 1000;
       pins.length = 0;
       ctx.lineCap = "round";
@@ -200,14 +223,6 @@
         const end = pts[48];
         const front = end.z > 0;
         pins.push({ p: rt.p, x: end.x, y: end.y, front });
-        // tell the background where a comet leaves the hub and where it lands
-        if (!reduced && rt.prev !== undefined) {
-          const b = cv.getBoundingClientRect();
-          const emit = (pt) => window.dispatchEvent(new CustomEvent("globe:ping", { detail: { x: b.left + pt.x, y: b.top + pt.y } }));
-          if (rt.prev < 0.7 && ph >= 0.7 && front) emit(end);
-          if (ph < rt.prev && pts[0].z > 0) emit(pts[0]);
-        }
-        rt.prev = ph;
         if (front) {
           ctx.globalAlpha = 1;
           ctx.fillStyle = theme.arc;
@@ -277,6 +292,8 @@
     };
 
     cv.addEventListener("pointerdown", (e) => {
+      pulse.downX = e.clientX;
+      pulse.downY = e.clientY;
       cv.setPointerCapture(e.pointerId);
       st.drag = true;
       st.px = e.clientX;
@@ -299,6 +316,13 @@
         tip.hidden = true;
         return;
       }
+      // hovering onto the sphere sends a soft ripple, at most every few seconds
+      const inside = onSphere(e);
+      if (inside && !pulse.inside && performance.now() - pulse.lastHover > 4000) {
+        pulse.lastHover = performance.now();
+        touch(false);
+      }
+      pulse.inside = inside;
       const b = cv.getBoundingClientRect();
       const x = e.clientX - b.left, y = e.clientY - b.top;
       const near = pins.filter((p) => p.front).map((p) => ({ ...p, d: Math.hypot(p.x - x, p.y - y) })).sort((a, c) => a.d - c.d)[0];
@@ -309,14 +333,19 @@
         tip.hidden = false;
       } else tip.hidden = true;
     });
-    const up = () => {
+    const up = (e) => {
+      // a click (not a drag) on the sphere makes the globe pulse once
+      if (e.type === "pointerup" && Math.hypot(e.clientX - pulse.downX, e.clientY - pulse.downY) < 5 && onSphere(e)) touch(true);
       st.drag = false;
       st.idle = performance.now();
       delete el.dataset.dragging;
     };
     cv.addEventListener("pointerup", up);
     cv.addEventListener("pointercancel", up);
-    cv.addEventListener("pointerleave", () => (tip.hidden = true));
+    cv.addEventListener("pointerleave", () => {
+      tip.hidden = true;
+      pulse.inside = false;
+    });
 
     new ResizeObserver(() => {
       size();
