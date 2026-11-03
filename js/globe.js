@@ -117,7 +117,8 @@
     const dots = landDots(window.innerWidth < 640 ? 18000 : 30000);
     const H = toVec(hub.lon, hub.lat);
     const routes = places.map((p, i) => ({ p, v: toVec(p.lon, p.lat), offset: i / places.length }));
-    const st = { yaw: hub.lon * RAD - 0.35, tilt: 22 * RAD, vy: 0, vt: 0, drag: false, px: 0, py: 0, last: 0, idle: 0 };
+    const home = hub.lon * RAD - 0.35;
+    const st = { yaw: home, tilt: 22 * RAD, vy: 0, vt: 0, drag: false, px: 0, py: 0, last: 0, idle: 0 };
     let W = 0, Hh = 0, dpr = 1, raf = 0, visible = true;
     const t0 = performance.now();
     const pins = [];
@@ -236,7 +237,14 @@
         st.tilt += st.vt * dt;
         st.vy *= Math.pow(0.05, dt);
         st.vt *= Math.pow(0.05, dt);
-        if (now - st.idle > 2500) st.yaw += dt * 0.08;
+        // when left alone, ease back toward the hub and sway gently around it, so the hub stays in view
+        if (now - st.idle > 2500) {
+          const target = home + Math.sin(now / 9000) * 0.45;
+          let d = (target - st.yaw) % (Math.PI * 2);
+          if (d > Math.PI) d -= Math.PI * 2;
+          if (d < -Math.PI) d += Math.PI * 2;
+          st.yaw += d * Math.min(1, dt * 0.6);
+        }
         st.tilt = Math.max(-0.9, Math.min(0.9, st.tilt + (22 * RAD - st.tilt) * Math.min(1, dt * 0.4)));
       }
       draw(now);
