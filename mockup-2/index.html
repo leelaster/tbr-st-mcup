@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <title>Tabor Electronics | High-end, World leading, Signal Source Company</title>
+  <link rel="icon" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- HEADER: a thin utility line, then a floating capsule. Products, Solutions, About and Search
+       all open one shared panel that reshapes itself as you move between them. -->
+  <div class="topline">
+    <div class="wrap topline__in">
+      <button class="topline__lang" aria-label="Language"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M3.5 12h17M12 3.5c-2.6 2.4-3.9 5.2-3.9 8.5s1.3 6.1 3.9 8.5M12 3.5c2.6 2.4 3.9 5.2 3.9 8.5s-1.3 6.1-3.9 8.5" /></svg>English</button>
+    </div>
+  </div>
+
+  <header class="bar" id="bar">
+    <div class="wrap bar__wrap">
+      <a href="#" class="bar__logo"><img src="assets/tabor-logo.png" alt="Tabor Electronics" width="150" height="49" /></a>
+      <div class="capsule" id="capsule">
+        <div class="capsule__row">
+          <nav class="capsule__menu" aria-label="Main">
+            <button class="capsule__link" data-open="products" aria-expanded="false">Products</button>
+            <button class="capsule__link" data-open="solutions" aria-expanded="false">Solutions</button>
+            <a href="#" class="capsule__link">Knowledge Center</a>
+            <button class="capsule__link" data-open="about" aria-expanded="false">About</button>
+            <a href="#" class="capsule__link">Careers</a>
+            <a href="#" class="capsule__link">Contact Us</a>
+          </nav>
+          <div class="capsule__end">
+            <button class="capsule__icon" data-open="search" aria-label="Search" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m20 20-4.2-4.2" /></svg></button>
+            <a href="#" class="btn btn--dark btn--sm">Get a Quote</a>
+            <button class="capsule__toggle" id="toggle" aria-expanded="false" aria-controls="sheet"><span>Menu</span><i aria-hidden="true"></i></button>
+          </div>
+        </div>
+
+        <!-- phone and tablet: the capsule itself grows into the menu -->
+        <div class="sheet" id="sheet">
+          <div class="sheet__in">
+            <details><summary>Products</summary><ul><li><a href="#">Signal Sources</a></li><li><a href="#">Signal Amplifiers</a></li><li><a href="#">Software Defined Radios</a></li><li><a href="#">Tailored Solutions</a></li><li><a href="#">PXIe Chassis</a></li><li><a href="#">Discontinued Products</a></li></ul></details>
+            <details><summary>Solutions</summary><ul><li><a href="#">Aerospace &amp; Defense</a></li><li><a href="#">Quantum &amp; Physics</a></li><li><a href="#">Wireless &amp; Communications</a></li><li><a href="#">Industrial &amp; Power</a></li></ul></details>
+            <a href="#" class="sheet__link">Knowledge Center</a>
+            <details><summary>About</summary><ul><li><a href="#">Company Profile</a></li><li><a href="#">OEM &amp; Custom Solutions</a></li><li><a href="#">Key Executives</a></li><li><a href="#">Quality at Tabor</a></li><li><a href="#">Blog</a></li><li><a href="#">News Room</a></li></ul></details>
+            <div class="sheet__utils"><a href="#">Careers</a><a href="#">Contact us</a><a href="#">English</a></div>
+          </div>
+        </div>
+
+        <!-- the shared, shape-shifting panel -->
+        <div class="morph" id="morph">
+          <span class="morph__caret" aria-hidden="true"></span>
+          <div class="morph__box">
+            <section class="pane" data-pane="products">
+              <div class="pane__cols">
+                <div>
+                  <p class="pane__head">Signal Sources</p>
+                  <ul><li><a href="#">RF &amp; MW Signal Generators</a></li><li><a href="#">Arbitrary Waveform Generators</a></li><li><a href="#">Arbitrary Waveform Transceivers</a></li><li><a href="#">Legacy Function/Pulse Generators</a></li></ul>
+                </div>
+                <div>
+                  <p class="pane__head">Signal Amplifiers</p>
+                  <ul><li><a href="#">RF Signal Amplifiers</a></li><li><a href="#">High-Voltage Amplifiers</a></li><li><a href="#">High-Frequency Amplifiers</a></li><li><a href="#">PCI &amp; PXI Signal Amplifiers</a></li></ul>
+                </div>
+                <div>
+                  <p class="pane__head">Software Defined Radios</p>
+                  <ul><li><a href="#">Research &amp; Development Radios</a></li><li><a href="#">Radar &amp; Threat Simulator</a></li><li><a href="#">Drone Warfare Test and Evaluation</a></li></ul>
+                </div>
+              </div>
+              <div class="pane__foot">
+                <a href="#" class="pane__chip">Tailored Solutions</a><a href="#" class="pane__chip">PXIe Chassis</a><a href="#" class="pane__chip">Discontinued Products</a>
+                <a href="#" class="pane__go">Product Navigator<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 3 7.5 6 4.5 9" /></svg></a>
+              </div>
+              <a href="#" class="pane__feature">
+                <img src="assets/prod-signal-sources.png" alt="" />
+                <span><strong>Explore Proteus AWG &amp; Transceivers Series</strong>Experience unmatched flexibility with Proteus platform — integrating high-speed waveform generation, IQ modulation, and signal processing in one scalable system.</span>
+              </a>
+            </section>
+
+            <section class="pane" data-pane="solutions">
+              <div class="pane__cols">
+                <div>
+                  <p class="pane__head">Aerospace &amp; Defense</p>
+                  <ul><li><a href="#">Spectrum Control and Monitoring</a></li><li><a href="#">Unmanned Aerial Systems (UAS) / Drones</a></li><li><a href="#">Radar and Range Simulation</a></li><li><a href="#">Electronic Warfare (EW)</a></li></ul>
+                </div>
+                <div>
+                  <p class="pane__head">Quantum &amp; Physics</p>
+                  <ul><li><a href="#">Quantum Computing</a></li><li><a href="#">Quantum Sensing</a></li><li><a href="#">Quantum Communication</a></li></ul>
+                </div>
+              </div>
+              <div class="pane__foot"><a href="#" class="pane__chip">Wireless &amp; Communications</a><a href="#" class="pane__chip">Industrial &amp; Power</a></div>
+            </section>
+
+            <section class="pane" data-pane="about">
+              <ul class="pane__grid"><li><a href="#">Company Profile</a></li><li><a href="#">OEM &amp; Custom Solutions</a></li><li><a href="#">Key Executives</a></li><li><a href="#">Careers</a></li><li><a href="#">Quality at Tabor</a></li><li><a href="#">RoHS, WEEE &amp; REACH</a></li><li><a href="#">Blog</a></li><li><a href="#">News Room</a></li></ul>
+            </section>
+
+            <section class="pane" data-pane="search">
+              <label class="pane__search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m20 20-4.2-4.2" /></svg><input type="search" placeholder="Search products, solutions…" aria-label="Search" /></label>
+              <p class="pane__head">Product Catalogues</p>
+              <ul class="pane__grid"><li><a href="#">Product Guide</a></li><li><a href="#">Proteus Arbitrary Waveform Generators and Transceivers</a></li><li><a href="#">Lucid RF Signal Generator</a></li><li><a href="#">Amplifier Selection Guide</a></li></ul>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO: rotating headline over flowing signal ribbons -->
+    <section class="hero" id="hero">
+      <div class="wrap hero__inner">
+        <h1 class="htitle" id="htitle" aria-live="off"><strong class="htitle__main">Enabling Spectrum Dominance.</strong> <span class="htitle__sub">High-fidelity RF environments engineered for critical mission success.</span></h1>
+        <ol class="slide-data" id="slide-data" hidden>
+          <li data-title="Enabling Spectrum Dominance." data-sub="High-fidelity RF environments engineered for critical mission success."></li>
+          <li data-title="Tabor's Software Defined Radios." data-sub="Validate Drone Performance in RF Congested Enviroment."></li>
+          <li data-title="LSX Series, Ultra-fast Frequency Switching." data-sub="The new LSX is the speed king! 10us across the entire frequency range."></li>
+          <li data-title="Find the right product Fast and Easy." data-sub="Enabling the Breakthroughs of Tomorrow."></li>
+          <li data-title="Innovate with Tailored Solutions." data-sub="Enabling the Breakthroughs of Tomorrow."></li>
+        </ol>
+        <div class="hero__ctas">
+          <a href="#" class="btn btn--dark">Explore Now<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 3 7.5 6 4.5 9" /></svg></a>
+        </div>
+        <div class="hero__dots" id="dots" aria-label="Slides">
+          <button class="is-active" aria-label="Slide 1"><i></i></button>
+          <button aria-label="Slide 2"><i></i></button>
+          <button aria-label="Slide 3"><i></i></button>
+          <button aria-label="Slide 4"><i></i></button>
+          <button aria-label="Slide 5"><i></i></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARTNERING WITH TABOR, with the team in the field -->
+    <section class="section partner">
+      <div class="wrap partner__grid">
+        <div class="partner__text">
+          <h2>Partnering with Tabor</h2>
+          <div class="pillars">
+            <article>
+              <h3>Global Leader</h3>
+              <p>Leading the world in signal generation and acquisition technologies for over five decades — delivering disruptive, high-performance solutions trusted by the most advanced companies and research organizations worldwide.</p>
+            </article>
+            <article>
+              <h3>Partner of Choice</h3>
+              <p>From defense and aerospace to quantum research, communications, and more, Tabor’s OEM and turnkey platforms power the world’s most demanding applications — making us the partner of choice for leading global integrators and system developers.</p>
+            </article>
+            <article>
+              <h3>Strong innovative Team</h3>
+              <p>Our strength is a world-class team of engineers and innovators. We fuse deep expertise with breakthrough design to deliver ultra-compact, scalable signal generation &amp; acquisition solutions—raising the bar for performance and precision.</p>
+            </article>
+            <article>
+              <h3>Global Spread</h3>
+              <p>With headquarters in Israel and offices across the U.S., Europe, and Asia, together with a global network of distributors and service partners, Tabor provides unmatched reach, responsiveness, and local expertise anywhere in the world.</p>
+            </article>
+          </div>
+        </div>
+        <div class="mosaic">
+          <figure class="mosaic__a"><img src="assets/prod-signal-sources.png" alt="Proteus arbitrary waveform generator" loading="lazy" /><figcaption>Signal Sources</figcaption></figure>
+          <figure class="mosaic__b"><img src="assets/menu-5.png" alt="SDR9484D 4-channel software defined radio" loading="lazy" /><figcaption>Software Defined Radios</figcaption></figure>
+          <figure class="mosaic__c"><img src="assets/prod-chassis.png" alt="PXIe chassis" loading="lazy" /><figcaption>PXIe Chassis</figcaption></figure>
+          <figure class="mosaic__d"><img src="assets/menu-4.png" alt="A10160 RF amplifier" loading="lazy" /><figcaption>Signal Amplifiers</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCT SEGMENTS -->
+    <section class="section section--tint">
+      <div class="wrap">
+        <header class="section__head"><h2>Product Segments</h2></header>
+        <div class="products">
+          <a class="card" href="#">
+            <svg class="wave" viewBox="0 0 300 60" aria-hidden="true"><path d="M0 30 Q 18.75 0 37.5 30 T 75 30 T 112.5 30 T 150 30 T 187.5 30 T 225 30 T 262.5 30 T 300 30" /></svg>
+            <h3>Signal Sources</h3>
+            <ul><li>RF &amp; MW Signal Generators</li><li>Arbitrary Waveform Generators</li><li>Arbitrary Waveform Transceivers</li><li>Legacy Function/Pulse Generators</li></ul>
+            <span class="more">See Products<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 3 7.5 6 4.5 9" /></svg></span>
+          </a>
+          <a class="card" href="#">
+            <svg class="wave" viewBox="0 0 300 60" aria-hidden="true"><path d="M0 30 L30 30 L35 8 L45 52 L50 30 L120 30 L125 8 L135 52 L140 30 L210 30 L215 8 L225 52 L230 30 L300 30" /></svg>
+            <h3>Software Defined Radios</h3>
+            <ul><li>Research &amp; Development Radios</li><li>Radar &amp; Threat Simulator</li><li>Drone Warfare Test and Evaluation</li></ul>
+            <span class="more">See Products<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 3 7.5 6 4.5 9" /></svg></span>
+          </a>
+          <a class="card" href="#">
+            <svg class="wave" viewBox="0 0 300 60" aria-hidden="true"><path d="M0 40 Q 20 32 40 40 T 80 36 Q 100 24 120 30 T 160 22 Q 190 10 220 16 T 300 6" /></svg>
+            <h3>Signal Amplifiers</h3>
+            <ul><li>RF Signal Amplifiers</li><li>High-Voltage Amplifiers</li><li>High-Frequency Amplifiers</li><li>PCI &amp; PXI Signal Amplifiers</li></ul>
+            <span class="more">See Products<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 3 7.5 6 4.5 9" /></svg></span>
+          </a>
+          <a class="card" href="#">
+            <svg class="wave" viewBox="0 0 300 60" aria-hidden="true"><path d="M0 46 L0 14 L50 14 L50 46 L100 46 L100 14 L150 14 L150 46 L200 46 L200 14 L250 14 L250 46 L300 46" /></svg>
+            <h3>PXIe Chassis</h3>
+            <ul><li>PXI Hybrid Chassis</li><li>PXIe Gen3 Chassis</li><li>PXIe Gen4 Chassis</li></ul>
+            <span class="more">See Products<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 3 7.5 6 4.5 9" /></svg></span>
+          </a>
+          <a class="card" href="#">
+            <svg class="wave" viewBox="0 0 300 60" aria-hidden="true"><path d="M0 30 Q 10 6 20 30 T 40 30 Q 55 50 70 30 T 100 30 Q 125 2 150 30 T 200 30 Q 230 44 260 30 T 300 30" /></svg>
+            <h3>Tailored Solutions</h3>
+            <ul><li>Spectrometers</li><li>Threat Simulators</li><li>Radar Target Generators</li><li>Wideband Spectrum Simulators</li></ul>
+            <span class="more">See Products<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 3 7.5 6 4.5 9" /></svg></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARKET SEGMENTS -->
+    <section class="section">
+      <div class="wrap">
+        <header class="section__head"><h2>Market Segments</h2></header>
+        <div class="markets">
+          <a href="#" class="market"><h3>Aerospace &amp; Defense</h3><p>The aerospace and defense (A&amp;D) industry is constantly evolving - new requirements and specifications to counter the next set of adversarial threats drive the need for advanced solutions and architectures.</p><span class="more">Read more<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 3 7.5 6 4.5 9" /></svg></span></a>
+          <a href="#" class="market"><h3>Quantum &amp; Physics</h3><p>Quantum physics is one of the fastest growing fields of research. Governments and private organizations are investing substantial resources, in the race for scientific and commercial advances.</p><span class="more">Read more<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 3 7.5 6 4.5 9" /></svg></span></a>
+          <a href="#" class="market"><h3>Wireless &amp; Communication</h3><p>Modulated signals are found in many industries such as mobile phones, radars, lasers, Wi-Fi networks, modems, navigation systems (GPS), RFID tags and satellite communications. Same modulation schemes can be found in the wired communication systems as well.</p><span class="more">Read more<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 3 7.5 6 4.5 9" /></svg></span></a>
+          <a href="#" class="market"><h3>Industrial &amp; Power</h3><p>Many industries make use of motion control systems, electro-optical systems such as lasers, electricity power lines, and power systems.</p><span class="more">Read more<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 3 7.5 6 4.5 9" /></svg></span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- LATEST INSIGHTS AND UPDATES -->
+    <section class="section section--tint">
+      <div class="wrap">
+        <header class="section__head"><h2>Latest Insights and Updates</h2></header>
+        <div class="insights">
+          <article class="box box--about">
+            <h3>About Tabor</h3>
+            <p>Founded in 1971, Tabor Electronics is a global leader in signal generation and acquisition solutions, delivering disruptive, high-performance technologies to research, defense, aerospace, and communications markets. With over five decades of innovation, Tabor is recognized for its compact, scalable designs, engineering excellence, and trusted partnerships with leading OEMs and system integrators worldwide.</p>
+            <a href="#" class="more">Read more<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 3 7.5 6 4.5 9" /></svg></a>
+          </article>
+          <article class="box">
+            <h3>News Room</h3>
+            <ul class="feed">
+              <li><a href="#">Tabor Electronics unveils Anti-Drone Test and Evaluation solution</a><time>02.04.2026</time></li>
+              <li><a href="#">Tabor enables new Radar Research</a><time>02.08.2025</time></li>
+              <li><a href="#">Tabor Electronics Unveils Proteus EW, Redefining Electronic Warfare and Radar Signal Simulation</a><time>10.03.2025</time></li>
+              <li><a href="#">Tabor Electronics Unveils Proteus EW Series: Redefining Electronic Warfare and Radar Signal Simulation</a><time>12.06.2024</time></li>
+            </ul>
+            <a href="#" class="more">See More<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 3 7.5 6 4.5 9" /></svg></a>
+          </article>
+          <article class="box">
+            <h3>Upcoming Events</h3>
+            <ul class="feed">
+              <li><a href="#">European Microwave Week</a><small>Excel London, Royal Victoria Dock, 1 Western Gateway, London E16 1XL, United Kingdom</small><time>04.10.2026</time></li>
+              <li><a href="#">MILCOM</a><time>12.10.2026</time></li>
+              <li><a href="#">63rd Annual AOC International Symposium &amp; Convention</a><small>National Harbor, MD</small><time>08.12.2026</time></li>
+              <li><a href="#">AOC EW</a><small>National Harbor, MD</small><time>08.12.2026</time></li>
+            </ul>
+            <a href="#" class="more">See More<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 3 7.5 6 4.5 9" /></svg></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIMULATE / STIMULATE / TEST: the one dark band, with the ribbons running through it -->
+    <section class="sst" id="sst">
+      <div class="wrap sst__grid">
+        <article>
+          <h3>Simulate</h3>
+          <p>Recreating real life scenarios in the lab and under controlled conditions is essential when developing new products. Tabor’s signal sources in conjunction with sophisticated software are an excellent solution for simulating complex signals for almost any application.</p>
+        </article>
+        <article>
+          <h3>Stimulate</h3>
+          <p>Whether controlling lasers in quantum physics experiments, propelling a single blood drop into a test tube or triggering peripheral equipment, Tabor offers high precision, high accuracy and ultra-low jitter instruments for even the most challenging stimulation needs.</p>
+        </article>
+        <article>
+          <h3>Test</h3>
+          <p>Testing in the development or production stages is crucial for delivering quality assured products. Whether it's testing pacemakers, cell phones' RF amplifiers or various airplane systems Tabor offers testing solutions for a variety of needs.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section contact">
+      <div class="wrap contact__grid">
+        <div>
+          <h2>Contact us for more information</h2>
+          <p class="lead">Have a question or need expert guidance? Our team is here to help you push the limits of precision and performance.</p>
+          <p class="contact__talk">Let’s talk.</p>
+        </div>
+        <form class="form" onsubmit="return false">
+          <label>Full name *<input type="text" /></label>
+          <label>Email *<input type="email" /></label>
+          <label>Company<input type="text" /></label>
+          <label>Country<input type="text" /></label>
+          <label class="form__wide">Message<textarea rows="4"></textarea></label>
+          <p class="form__note form__wide">Asterisk is a mandatory field</p>
+          <p class="form__note form__wide">By submitting this form, you consent to Tabor Electronics storing and processing your information to manage your account and deliver your requested products and services. We may occasionally update you on our offerings - you can unsubscribe anytime (see our Privacy Policy for more details).</p>
+          <button class="btn btn--dark form__wide" type="button">Submit</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- INSIGHTS FROM TABOR: the team's LinkedIn posts -->
+    <section class="section section--tint linkedin">
+      <div class="wrap">
+        <header class="section__head section__head--row">
+          <h2>Insights from Tabor and It's Industry Leaders</h2>
+          <nav class="socials" aria-label="Social">
+            <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 9.5v8M6.5 6.5v.01M10.5 17.5v-4.5a2.5 2.5 0 0 1 5 0v4.5M10.5 9.5v8" /><rect x="3" y="3" width="18" height="18" rx="3" /></svg></a>
+            <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="3.5" /><path d="m10 9.5 4.5 2.5-4.5 2.5z" /></svg></a>
+            <a href="#" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4l16 16M20 4 4 20" /></svg></a>
+          </nav>
+        </header>
+        <div class="posts">
+          <a href="#" class="post"><img src="assets/feed-pendleton-day2.jpg" alt="" loading="lazy" /><p>Day Two. Field test begins at Pendleton UAS Range of our Proteus SDR, drone decoy. Today we are...</p></a>
+          <a href="#" class="post"><img src="assets/feed-eumw-40ghz-gen.jpg" alt="" loading="lazy" /><p>This year at European Microwave Week we are highlighting our 40GHz Signal Generation capabilities...</p></a>
+          <a href="#" class="post"><img src="assets/feed-eumw-40ghz-sdr.jpg" alt="" loading="lazy" /><p>We have had a great time at European Microwave Week this week, showing off our 40GHz SDR...</p></a>
+          <a href="#" class="post"><img src="assets/feed-flight-test-day3.jpg" alt="" loading="lazy" /><p>Day Three: Flight testing with a full network over a wide area of acoustic, radar, optical and...</p></a>
+          <a href="#" class="post"><img src="assets/feed-uae-quantum.jpg" alt="" loading="lazy" /><p>I had the honor of representing Tabor in the UAE last week, as a member of the Quantum Trade...</p></a>
+          <a href="#" class="post"><img src="assets/feed-qbi-2026.jpg" alt="" loading="lazy" /><p>Greetings from QBI² 2026, 'Quantum Effects at the Biology and Innovation Interface' at the Biohub...</p></a>
+          <a href="#" class="post"><img src="assets/feed-eumw-day1.jpg" alt="" loading="lazy" /><p>Day One: European Microwave week, we are demonstrating our wide bandwidth Software Defined Radio...</p></a>
+          <a href="#" class="post"><img src="assets/feed-milcom.jpg" alt="" loading="lazy" /><p>It's great to be at MilCom again this week and connect with our fabulous colleagues and Tabor...</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div>
+        <img class="footer__logo" src="assets/tabor-logo.png" alt="Tabor Electronics" width="150" height="49" />
+      </div>
+      <div>
+        <h4>Site Map</h4>
+        <ul><li>Home</li><li>Products</li><li>Solutions</li><li>Knowledge Center</li><li>About</li><li>Contact Us</li></ul>
+      </div>
+      <div>
+        <h4>Product Catalogues</h4>
+        <ul><li>Product Guide</li><li>Proteus Arbitrary Waveform Generators and Transceivers</li><li>Lucid RF Signal Generator</li><li>Amplifier Selection Guide</li><li>Discontinued Products</li></ul>
+      </div>
+      <div>
+        <h4>US Sales &amp; Support</h4>
+        <p>1160 Battery Street #100, San Francisco, CA 94111<br />(628) 208 6418</p>
+      </div>
+      <div>
+        <h4>European Sales &amp; Support</h4>
+        <p>Orchideenweg 48, 30900, Wedemark Germany<br />(49) 5130 9692259</p>
+      </div>
+      <div>
+        <h4>Asian Sales &amp; Support</h4>
+        <p>D-204, Sudarshan Pride, Ahmedabad 380060<br />(91) 90045 43308</p>
+      </div>
+    </div>
+    <div class="wrap footer__base">
+      <span>Copyright © 1971 - 2026 Tabor Electronics Ltd. All Rights Reserved.</span>
+      <nav><a href="#">Accessibility Statement</a><a href="#">Privacy Statement</a><a href="#">Terms of Use</a><a href="#">Jobs at Tabor</a><a href="#">Contact Us</a></nav>
+    </div>
+    <div class="wrap footer__draft">Design mockup 2 for review. Not the live Tabor website.</div>
+  </footer>
+
+  <script src="js/ribbons.js"></script>
+  <script src="js/bar.js"></script>
+  <script src="js/hero.js"></script>
+  <script>
+    mountRibbons(document.getElementById("hero"));
+    mountRibbons(document.getElementById("sst"), { dark: true, lines: 34 });
+  </script>
+</body>
+</html>
